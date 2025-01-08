@@ -1,4 +1,4 @@
-import {flatten} from "./variant10";
+const {flatten} = require("./variant10");
 
 /**
  * Re-shape a multi dimensional array to fit the specified dimensions
@@ -10,7 +10,7 @@ import {flatten} from "./variant10";
  * @throws {DimensionError}       If the product of the new dimension sizes does
  *                                not equal that of the old ones
  */
-export function reshape (array, sizes) {
+function reshape (array, sizes) {
   const flatArray = flatten(array)
   const currentLength = flatArray.length
 
@@ -53,7 +53,7 @@ export function reshape (array, sizes) {
  * @throws {Error}                If more than one wildcard or unable to replace it.
  * @returns {Array.<number>}      The sizes array with wildcard replaced.
  */
-export function processSizesWildcard (sizes, currentLength) {
+function processSizesWildcard (sizes, currentLength) {
   const newLength = product(sizes)
   const processedSizes = sizes.slice()
   const WILDCARD = -1
@@ -121,7 +121,7 @@ function _reshape (array, sizes) {
  * @param {Array} [size]
  * @returns {Array} returns the array itself
  */
-export function squeeze (array, size) {
+function squeeze (array, size) {
   const s = size || arraySize(array)
 
   // squeeze outer dimensions
@@ -182,7 +182,7 @@ function _squeeze (array, dims, dim) {
  * @returns {Array} returns the array itself
  * @private
  */
-export function unsqueeze (array, dims, outer, size) {
+function unsqueeze (array, dims, outer, size) {
   const s = size || arraySize(array)
 
   // unsqueeze outer dimensions
@@ -200,4 +200,7 @@ export function unsqueeze (array, dims, outer, size) {
   }
 
   return array
+}
+module.exports = {
+  reshape, processSizesWildcard, squeeze, unsqueeze
 }
